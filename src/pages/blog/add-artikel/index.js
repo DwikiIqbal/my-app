@@ -132,8 +132,7 @@ export default function Add() {
                 <textarea
                   name="isi"
                   id="isi"
-                  cols="30"
-                  rows="10"
+                  
                   className="bg-transparent hover:border-amber-200 hover:shadow-lg transition duration-300 ease-in-out border-b border-gray-400 focus:outline-none focus:border-amber-200"
                   value={isiArtikel}
                   onChange={(e) => setIsiArtikel(e.target.value)}

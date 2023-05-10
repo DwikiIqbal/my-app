@@ -2,6 +2,10 @@ import { observer } from "mobx-react-lite"
 import Link from "next/link"
 import { useStore } from "./StoreProvider"
 import { useEffect, useState } from "react"
+import { useRouter } from "next/router"
+import Modal from "./modal"
+import ModalDetail from "./modal-detail"
+
 
 const Section = observer((props) => {
     // store digunakan untuk menyimpan setiap class yang sudah dibuat. Contoh nya seperti class pada artikel dan fact
@@ -27,6 +31,18 @@ const Section = observer((props) => {
         }
     }
 
+    // useEffect(() => {
+    //   async function fetchData() {
+    //     try { 
+    //       const fact = await store.fact.getFact();
+    //       setDataFact(fact.body.data);
+    //     } catch (error) {
+    //       console.log(error, 'err');
+    //     }
+    //   }
+    //   fetchData();
+    // }, []);
+   
     console.log(dataFact, 'list')
     return (
         <section className="py-16">
@@ -44,7 +60,9 @@ const Section = observer((props) => {
                   <div className="bg-gray-50 p-10 w-full">
                   <div className="text-2xl font-bold ">
                   <h1>
-                    <span className=" hover:text-teal-400 transition duration-300 ease-in-out text-shadow">Kumpulan Cerpen Terbaru</span> 
+                    <span className=" hover:text-amber-500 transition duration-300 ease-in-out text-shadow">Kumpulan </span> 
+                    <span className=" hover:text-amber-500 transition duration-300 ease-in-out text-shadow">Cerpen </span>
+                    <span className=" hover:text-amber-500 transition duration-300 ease-in-out text-shadow">Terbaru</span> 
                   </h1>
                 </div>
                 <div className="pb-16">
@@ -75,6 +93,8 @@ const Section = observer((props) => {
                    </div>
 
 
+
+
                   {/* Side Artikel (artikel pendek) */}
                   <div className="w-1/4 p-10 bg-gray-50 rounded-xl flex-col">
                     <div className="text-center text-2xl pb-4 font-bold">
@@ -89,15 +109,11 @@ const Section = observer((props) => {
                           <p>{item.isiFakta}</p>
                           <br />
                         </div>
-                        <a href={{ pathname: '/blog/[slug]', query: { id: item.id } }} as={`/blog/${item.id}`} className="block mx-auto text-center text-blue-500 my-4">
-                          Read Me
-                        </a>
+                        <Link className="block mx-auto text-center text-blue-500 my-4" href={{ pathname: '/blog/[slug]', query: { id: item.id } }} as={`/blog/${item.id}`} key={item.id}> Read Me </Link>
                       </div>
                     </div>
                   ))}
-                  <div className="mt-auto object-bottom pt-80 text-center "> 
-                  <button href={'blog/'} className="p-2 bg-blue-500 rounded-lg hover:bg-blue-400 text-zinc-100 transition duration-500 ease-in-out">Tambah Fakta Menarik Lainnya...</button>
-                  </div>
+                  <Modal/>
 
                   </div> 
                 </div>

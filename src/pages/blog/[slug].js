@@ -96,6 +96,7 @@ export default function CommentPage() {
           ) : (
             <div>Loading...</div>
           )}
+          
         </main>
       </Format>
     </>

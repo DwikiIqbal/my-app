@@ -43,13 +43,19 @@ const Section = observer((props) => {
     //   fetchData();
     // }, []);
    
-    console.log(dataFact, 'list')
+    console.log()
     return (
         <section className="py-16">
           
              {/* CONTAINER Judul*/}
+             <div className="">
+                {/* <img src="https://img.celebrities.id/okz/900/O972jg/master_2d14B0O5uQ_1426_contoh_cerpen_tentang_diri_sendiri.jpg" className="w-full h-[500px] mx-auto" alt=""> 
+                </img> */}
+                </div>
             <div className="container mx-auto md:px-24">
                 <h1 className="font-bold text-4xl py-12 text-center">Page</h1>
+                
+                
                 
                 {/* Pembungkus Container Artikel */}
                 <div className="xl:container mx-auto max-w-screen-xl">
@@ -96,26 +102,10 @@ const Section = observer((props) => {
 
 
                   {/* Side Artikel (artikel pendek) */}
-                  <div className="w-1/4 p-10 bg-gray-50 rounded-xl flex-col">
-                    <div className="text-center text-2xl pb-4 font-bold">
-                    <h1>Funfact</h1>
-                    </div>   
-                  {dataFact.map((item) => (
-                    <div className="mb-4">
-                      <div className="sm:w-full bg-white px-3 rounded-lg shadow-lg hover:shadow-amber-200/50 transition duration-300 ease-in-out overflow-hidden">
+                 
 
-                        <h1 className="text-xl font-bold text-center py-3 sm:py-5">{item.judulFakta}</h1>
-                        <div className="line-clamp-[4]">
-                          <p>{item.isiFakta}</p>
-                          <br />
-                        </div>
-                        <Link className="block mx-auto text-center text-blue-500 my-4" href={{ pathname: '/blog/[slug]', query: { id: item.id } }} as={`/blog/${item.id}`} key={item.id}> Read Me </Link>
-                      </div>
-                    </div>
-                  ))}
+                   
                   <Modal/>
-
-                  </div> 
                 </div>
               </div>
             </div>

@@ -21,6 +21,10 @@ export default function CommentPage() {
 
   const loadInitialData = async () => {
     try {
+      if (data && data.body) {
+        localStorage.setItem('artikelData', JSON.stringify(data.body));
+      }
+      
       const artikelData = await store.artikel.getArtikelById(id);
       setData(artikelData.body);
       localStorage.setItem('artikelData', JSON.stringify(data.body));

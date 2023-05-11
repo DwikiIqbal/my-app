@@ -10,8 +10,8 @@ export class FactStore {
             ctx: observable,
             data: observable,
             getFact: action,
-            // getFactById: action,
-            // createFact: action
+            getFactById: action,
+            createFact: action
         });
         this.ctx = ctx
     }
@@ -20,13 +20,13 @@ export class FactStore {
         return await http.get('/fact');
     }
 
-    // async getArtikelById(id) {
-    //     return await http.get(`/artikel/${id}`)
-    // }
+    async getFactById(id) {
+        return await http.get(`/fact/${id}`)
+    }
 
-    // async createArtikel(data){
-    //     return await http.post('/artikel', data)
-    // }
+    async createFact(data){
+        return await http.post('/fact', data)
+    }
 
     // async deleteArtikel(id){
     //     return await http.del(`/artikel/${id}`)

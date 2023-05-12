@@ -24,13 +24,22 @@ export class FactStore {
         return await http.get(`/fact/${id}`)
     }
 
-    async createFact(data){
-        return await http.post('/fact', data)
-    }
+    async createFact(data) {
+        const endpoint = 'http://localhost:4000/fact';
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        };
+        const response = await fetch(endpoint, options);
+        return response.json();
+      };
 
-    // async deleteArtikel(id){
-    //     return await http.del(`/artikel/${id}`)
-    // }
+    async deleteFact(id){
+        return await http.del(`/fact/${id}`)
+    }
 
     // async updateArtikel(id, data){
     //     return await http.del(`/artikel/${id}`, data)

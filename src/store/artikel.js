@@ -11,7 +11,9 @@ export class ArtikelStore {
             data: observable,
             getArtikel: action,
             getArtikelById: action,
-            createArtikel: action
+            createArtikel: action,
+            deleteArtikel: action,
+            updateArtikel: action
         });
         this.ctx = ctx
     }
@@ -33,6 +35,7 @@ export class ArtikelStore {
     }
 
     async updateArtikel(id, data){
-        return await http.del(`/artikel/${id}`, data)
+        return await http.put(`/artikel/${id}`, data)
     }
+
 }

@@ -10,11 +10,11 @@ import ModalDetail from "./modal-detail"
 const Section = observer((props) => {
     // store digunakan untuk menyimpan setiap class yang sudah dibuat. Contoh nya seperti class pada artikel dan fact
     const store = useStore()
-    // membuat state pada setiap data 
+    // membuat state dataArtikel 
     const [dataArtikel, setDataArtikel] = useState([])
     const [dataFact, setDataFact] = useState([])
 
-    // menjalankan fungsi loadInitialData yang didalamnya  terdapat dua function async yaitu artikel dan fact
+    // menjalankan fungsi loadInitialData yang didalamnya ada function untuk artikel 
     useEffect(() => {
       loadInitialData()
     }, [])
@@ -24,41 +24,43 @@ const Section = observer((props) => {
         try {
             const artikel = await store.artikel.getArtikel();
             setDataArtikel(artikel.body.data)
-            const fact = await store.fact.getFact();
+            const fact = await store.fact.getFact()
             setDataFact(fact.body.data)
         } catch (error) {
             console.log(error, 'err');
         }
     }
 
-    // useEffect(() => {
-    //   async function fetchData() {
-    //     try { 
-    //       const fact = await store.fact.getFact();
-    //       setDataFact(fact.body.data);
-    //     } catch (error) {
-    //       console.log(error, 'err');
-    //     }
-    //   }
-    //   fetchData();
-    // }, []);
-   
-    console.log()
     return (
         <section className="py-16">
           
              {/* CONTAINER Judul*/}
              <div className="">
-                {/* <img src="https://img.celebrities.id/okz/900/O972jg/master_2d14B0O5uQ_1426_contoh_cerpen_tentang_diri_sendiri.jpg" className="w-full h-[500px] mx-auto" alt=""> 
-                </img> */}
+               
                 </div>
             <div className="container mx-auto md:px-24">
-                <h1 className="font-bold text-4xl py-12 text-center">Page</h1>
+            
                 
+                <h1 className="font-bold text-5xl py-12 w-1/2">
+                <span className=" hover:text-amber-500 transition duration-300 ease-in-out text-shadow">We </span> 
+                <span className=" hover:text-amber-500 transition duration-300 ease-in-out text-shadow">Present </span> 
+                <span className=" hover:text-amber-500 transition duration-300 ease-in-out text-shadow">The </span>  
+                <span className=" hover:text-amber-500 transition duration-300 ease-in-out text-shadow">Best </span> 
+                <span className=" hover:text-amber-500 transition duration-300 ease-in-out text-shadow">Collection </span> 
+                <span className=" hover:text-amber-500 transition duration-300 ease-in-out text-shadow">of </span> 
+                <span className=" hover:text-amber-500 transition duration-300 ease-in-out text-shadow">Short </span> 
+                <span className=" hover:text-amber-500 transition duration-300 ease-in-out text-shadow">Stories </span> 
+                </h1>
+               
                 
                 
                 {/* Pembungkus Container Artikel */}
                 <div className="xl:container mx-auto max-w-screen-xl">
+                  <div className="pb-20 flex overflow-hidden sm:w-full sm:px-auto">
+                <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ym9va3xlbnwwfDF8MHx8&auto=format&fit=crop&w=500&q=60" className="w-1/2  mx-auto h-[450px]" alt=""/>
+                <img src="https://images.unsplash.com/photo-1630343710506-89f8b9f21d31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzl8fGJvb2t8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" className="w-1/2  mx-auto h-[450px]" alt=""/> 
+                <img src="https://images.unsplash.com/photo-1529590003495-b2646e2718bf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzJ8fGJvb2t8ZW58MHwxfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="" className="w-1/2 pr-4 mx-auto h-[450px]"/>
+                </div> 
                  <div className="flex flex-col sm:flex-row sm:justify-between gap-5">
 
                   {/* Artikel Utama  */}
@@ -97,18 +99,13 @@ const Section = observer((props) => {
                      
                      </div>
                    </div>
-
-
-
-
-                  {/* Side Artikel (artikel pendek) */}
-                 
-
                    
                   <Modal/>
                 </div>
+                
+                </div>
               </div>
-            </div>
+            
         </section>
     )
 })

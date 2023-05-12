@@ -2,7 +2,6 @@ import { useStore } from '@/components/StoreProvider'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from "react";
 import Format from '@/layout/format';
-
 import Link from 'next/link';
 
   export default function Update({}) {
@@ -12,32 +11,31 @@ import Link from 'next/link';
       isiArtikel: "",
       pembuatArtikel: "",
     });
+    
     const store = useStore();
     const router = useRouter();
     const [isEditing, setIsEditing] = useState(false);
-
+    
     useEffect(() => {
-      const storedData = JSON.parse(localStorage.getItem("artikelData"));
-      if (storedData) {
-        setData(storedData);
-      }
-    }, []);
+      const id = router.query.id; // Ambil ID dari URL
+      console.log(router.query.id);
+
+      const fetchArtikel = async () => {
+        try {
+          const artikel = await store.artikel.getArtikelById(id); // Ambil data artikel dari database menggunakan ID
+          setData({ ...artikel }); // Set data artikel ke dalam state `data`
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetchArtikel();
+    }, [router.query.id, store.artikel]);
     
 
     const updateArtikel = async (e) => {
       e.preventDefault();
       try {
-
-        // Cek apakah data.id memiliki nilai yang valid
-        const endpoint = `http://localhost:4000/artikel/${data.id}`;
-        const response = await fetch(endpoint, {
-          method: "PUT",
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-          body: JSON.stringify(data),
-        });
-        const updatedData = await response.json();
+        const updatedData = await store.artikel.updateArtikel(data.id, data);
         console.log(updatedData);
         setData(updatedData);
         localStorage.setItem("artikelData", JSON.stringify(data)); // simpan data yang sudah diperbarui
@@ -108,7 +106,7 @@ import Link from 'next/link';
                 <br />
             <div className="grid grid-cols-3 gap-4 w-[360px]">
                   <div>
-                   <input id="drama" name="kategoriArtikel[]" type="checkbox" value="drama" className="mr-2" checked={data.kategoriArtikel.includes("drama")} onChange={handleCheckboxChange}/>
+                   <input id="drama" name="kategoriArtikel[]" type="checkbox" value="drama" className="mr-2" checked={data.kategoriArtikel && data.kategoriArtikel.includes("drama")} onChange={handleCheckboxChange}/>
                    <label htmlFor="drama">Drama</label>
                   </div>
                   <div>

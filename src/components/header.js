@@ -19,10 +19,10 @@ export default function Header(){
                 </div>
                 <div className="w-96 order-3 flex justify-center">
                 <div className="flex gap-6 ">
-                    <Link href="/blog" className="hover:text-teal-400 transition duration-300 ease-in-out">Home</Link>
-                    <Link href="/blog/about" className="hover:text-teal-400 transition duration-300 ease-in-out">About Us</Link>
+                    <Link href="/blog" className="hover:text-amber-500 transition duration-300 ease-in-out">Home</Link>
+                    <Link href="/blog/about" className="hover:text-amber-500 transition duration-300 ease-in-out">About Us</Link>
                     <span
-              className="cursor-pointer hover:text-teal-400
+              className="cursor-pointer hover:text-amber-500
                transition duration-300 ease-in-out"
               onMouseEnter={toggleDropdown}
               onMouseLeave={toggleDropdown}

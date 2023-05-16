@@ -29,10 +29,6 @@ export default function CommentPage() {
       setData(artikelData.body);
       localStorage.setItem('artikelData', JSON.stringify(data.body));
 
-      const fakta = await store.fact.getFacts(id);
-      setDataFact(fakta.body);
-      localStorage.setItem('faktaData', JSON.stringify(fakta.body));
-
     } catch (error) {
       console.log(error, 'err');
     }

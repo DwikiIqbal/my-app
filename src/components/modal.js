@@ -1,8 +1,6 @@
-import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
 import { useStore } from "./StoreProvider"
-import ModalDetail from "./modal-detail"
-import Link from "next/link"
+
 
 
 export default function Modal() {
@@ -11,11 +9,15 @@ export default function Modal() {
   const [judulFakta, setJudulFakta] = useState('')
   const [isiFakta, setIsiFakta] = useState('')
   const [sumberFakta, setSumberFakta] = useState('')
+
   const [showModal, setShowModal] = useState(false)
   const [showModalDetail, setShowModalDetail] = useState(false)
+  
   const [dataFact, setDataFact] = useState([])
   const [factData, setFactData] = useState({});
-  const router = useRouter()
+
+  const [deleteId, setDeleteId] = useState(null); // State untuk menyimpan id item yang akan dihapus
+  
 
   // Mengambil semua data fact
   useEffect(() => {
@@ -34,6 +36,7 @@ export default function Modal() {
   // menampilkan modal berupa inputan untuk menambahkan
   const openModalDetail = (item) => {
     setFactData(item)
+    setDeleteId(item.id);
     setShowModalDetail(true)
   }
 
@@ -79,35 +82,30 @@ export default function Modal() {
         setDataFact([...dataFact, data])
 
         // simpan data ke localStorage
-        localStorage.setItem('faktaTerbaru', JSONdata)
+        localStorage.setItem('factData', JSON.stringify(result.body.data));
+
       }
     } catch (error) {
       console.error(error)
     }
-  }
+  };
 
   const deleteFact = async () => {
-    const storedData = JSON.parse(localStorage.getItem('factData'));
-    console.log(storedData);
     try {
-      if (!storedData.id) {
-        console.log('Fact ID tidak tersedia');
-        return;
-      }
-
-      await store.fact.deleteArtikel(storedData.id, {
-        method: 'DELETE' 
-      });
-      // Jika berhasil, perbarui tampilan
-      setDataFact(null); // menghapus artikel dari tampilan
-      localStorage.removeItem('factData'); // menghapus artikel dari local storage
-      
+      await store.fact.deleteFact(deleteId); // Menghapus data berdasarkan id menggunakan fungsi deleteFact dari store
+      const updatedData = dataFact.filter((item) => item.id !== deleteId);
+      setDataFact(updatedData);
+      closeModalDetail();
+  
+      // Hapus juga data dari localStorage
+      const storedData = JSON.parse(localStorage.getItem('factData'));
+      const updatedStoredData = storedData.filter((item) => item.id !== deleteId);
+      localStorage.setItem('factData', JSON.stringify(updatedStoredData));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
-  }
-
-
+  };
+  
   return (
     <>
             <div className="w-1/4 p-10 bg-gray-50 flex-col">
@@ -131,7 +129,7 @@ export default function Modal() {
                   ))}
 
                   {showModalDetail && (
-                          <div className="fixed z-10 inset-0 overflow-y-auto">
+                          <div className="fixed z-10 inset-0 overflow-y-auto bg-black bg-opacity-70">
                             <div className="flex items-center justify-center min-h-screen px-4">
                               <div className="bg-white rounded-lg overflow-hidden shadow-xl max-w-lg w-full">
                                 <div className="px-6 py-4">
@@ -154,12 +152,12 @@ export default function Modal() {
 
                  
                  {/* Membuat dataFact sesuai value nya */}
-                   <div className="pt-80 text-center ">
+                   <div className="pt-20 text-center bottom-0 ">
       <button onClick={openModal} className="p-2 bg-blue-500 rounded-lg hover:bg-blue-400 text-zinc-100 transition duration-500 ease-in-out">Tambahkan Fakta Menarik Lainnya...</button>
       
       {/* Menampilkan form untuk Funfact yang ditampilkan berupa modal */}
       {showModal && (
-         <div className="fixed inset-0 flex items-center justify-center z-50">
+         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70">
           
           <form onSubmit={handleSubmit} className='bg-gray-100 p-8 rounded-lg shadow-lg grid w-1/4'>
           <div className="font-bold text-xl pb-4">

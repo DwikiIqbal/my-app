@@ -43,11 +43,9 @@ import Link from 'next/link';
       }
     }, [router.query.id, store.artikel]);
   
-
     useEffect(() => {
       setId(router.query.id);
     }, [router.query.id]);
-    
   
     const updateArtikel = async (e) => {
       e.preventDefault();
@@ -56,7 +54,7 @@ import Link from 'next/link';
           const updatedData = await store.artikel.updateArtikel(id, data);
           console.log(updatedData);
           localStorage.setItem("artikelData", JSON.stringify(updatedData));
-    
+  
           toggleEdit();
           router.push(`/blog/admin`);
           alert('Artikel berhasil diperbarui');
@@ -65,7 +63,6 @@ import Link from 'next/link';
         }
       }
     };
-    
   
     const handleCheckboxChange = (event) => {
       const value = event.target.value;
@@ -89,7 +86,7 @@ import Link from 'next/link';
     const toggleEdit = () => {
       setIsEditing(!isEditing);
     };
-    
+  
   
     
   

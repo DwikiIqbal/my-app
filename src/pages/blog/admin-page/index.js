@@ -51,7 +51,7 @@ export default function Admin(){
         <div class="text-5xl pb-16 ">
             <h1>Admin Page</h1>
             <div className=" flex overflow-hidden sm:w-full sm:px-auto">
-            {/* <img src="https://images.unsplash.com/photo-1512580770426-cbed71c40e94?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fGJvb2t8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="" className="  mx-auto h-[450px]"/> */}
+            {/* <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjl8fGJvb2t8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="" className="  mx-auto h-[450px]"/> */}
             {/* <img src="https://images.unsplash.com/photo-1573848855919-9abecc93e456?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjh8fGJvb2t8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="" className="w-1/2  mx-auto h-[450px]"/> */}
             </div>
         </div>

@@ -1,7 +1,7 @@
 function Footer(){
   
     return (
-        <footer className="text-center text-neutral-900 mx-auto justify-center pb-10">
+        <footer className="text-center text-neutral-900 mx-auto justify-center pb-10 bottom-0">
         {/* <div className="flex justify-center gap-4">
           <a href="#" className="hover:text-amber-200 transition duration-300 ease-in-out">
             About

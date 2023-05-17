@@ -2,9 +2,9 @@ import { observer } from "mobx-react-lite"
 import Link from "next/link"
 import { useStore } from "./StoreProvider"
 import { useEffect, useState } from "react"
-import { useRouter } from "next/router"
+
 import Modal from "./modal"
-import ModalDetail from "./modal-detail"
+
 
 
 const Section = observer((props) => {
@@ -12,7 +12,6 @@ const Section = observer((props) => {
     const store = useStore()
     // membuat state dataArtikel 
     const [dataArtikel, setDataArtikel] = useState([])
-    const [dataFact, setDataFact] = useState([])
 
     // menjalankan fungsi loadInitialData yang didalamnya ada function untuk artikel 
     useEffect(() => {
@@ -24,8 +23,6 @@ const Section = observer((props) => {
         try {
             const artikel = await store.artikel.getArtikel();
             setDataArtikel(artikel.body.data)
-            const fact = await store.fact.getFact()
-            setDataFact(fact.body.data)
         } catch (error) {
             console.log(error, 'err');
         }

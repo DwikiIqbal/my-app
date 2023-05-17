@@ -37,7 +37,7 @@ export default function Header(){
                     
                     <Link href="/blog/add-artikel">Add</Link>
                     <br />
-                    <a href="#">###</a>
+                    <Link href="/blog/admin">Admin</Link>
                     <br />
                     <a href="#">###</a>
                     

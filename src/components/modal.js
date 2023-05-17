@@ -111,11 +111,11 @@ export default function Modal() {
             <div className="w-1/4 p-10 bg-gray-50 flex-col">
 
               {/* Mengambil data yang berada di dataFact lalu dipetakan sampai seluruhnya berhasil di ambil */}
-                    <div className="text-center text-2xl pb-4 font-bold">
+                    <div className="text-center text-2xl pb-10 font-bold">
                     <h1>Funfact</h1>
                     </div>   
                   {dataFact.map((item) => (
-                    <div className="mb-4">
+                    <div className="mb-8">
                       <div className="sm:w-full bg-white px-3 rounded-lg shadow-lg hover:shadow-amber-200/50 transition duration-300 ease-in-out overflow-hidden">
 
                         <h1 className="text-xl font-bold text-center py-3 sm:py-5">{item.judulFakta}</h1>
@@ -133,14 +133,14 @@ export default function Modal() {
                             <div className="flex items-center justify-center min-h-screen px-4">
                               <div className="bg-white rounded-lg overflow-hidden shadow-xl max-w-lg w-full">
                                 <div className="px-6 py-4">
-                                  <div className="text-xl font-bold mb-2">{factData.judulFakta}</div>
-                                  <p className="text-gray-700 text-base">{factData.isiFakta}</p>
+                                  <div className="text-3xl font-bold mb-2">{factData.judulFakta}</div>
+                                  <p className=" text-xl text-gray-700 text-base pt-4">{factData.isiFakta}</p>
                                   <br/>
-                                  <p className="text-gray-700 text-base float-right ">Sumber: {factData.sumberFakta}</p>
+                                  <p className=" text-gray-700 text-base">Sumber: {factData.sumberFakta}</p>
                                 </div>
-                                <div className="px-6 py-4 flex justify-end float-right">
-                                  <button className="bg-gray-200 hover:bg-gray-300 rounded-md px-4 py-2 mr-2" onClick={closeModalDetail}>Tutup</button>
-                                  <button className="bg-gray-200 hover:bg-red-600 rounded-md px-4 py-2 mr-2" onClick={deleteFact}>Hapus</button>
+                                <div className="px-6 py-4 flex justify-end">
+                                  <button className="bg-red-600 hover:bg-red-500 transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2" onClick={deleteFact}>Hapus</button>
+                                  <button className="bg-gray-200 hover:bg-gray-300 transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2" onClick={closeModalDetail}>Tutup</button>
                                 </div>
                               </div>
                             </div>
@@ -168,8 +168,9 @@ export default function Modal() {
               <input
                 type="text"
                 value={judulFakta}
-                className="rounded-lg border-line w-full"
+                className="rounded-lg border-line w-full h-10"
                 placeholder=" Masukkan Judul"
+                required
                 onChange={(e) => setJudulFakta(e.target.value)}
               />
             </label>
@@ -177,7 +178,7 @@ export default function Modal() {
             <label>
               <textarea
                 value={isiFakta}
-                cols="30" rows="10" id="isiFakta" name="isiFakta" type="text" placeholder=" Masukkan Isi" className="rounded-lg w-full" 
+                 rows="7" id="isiFakta" name="isiFakta" type="text" placeholder=" Masukkan Isi" className="rounded-lg w-full" 
                 onChange={(e) => setIsiFakta(e.target.value)}
               />
             </label>
@@ -186,7 +187,7 @@ export default function Modal() {
               <input
                 type="text"
                 value={sumberFakta}
-                className="rounded-lg w-full"
+                className="rounded-lg w-full h-10"
                 placeholder=" Masukkan Sumbernya"
                 onChange={(e) => setSumberFakta(e.target.value)}
               />

@@ -1,12 +1,9 @@
 import Format from "@/layout/format"
 import { useStore } from "@/components/StoreProvider"
 import { useEffect, useState } from "react"
-import { useRouter } from 'next/router'
 import Link from "next/link"
 
 export default function Admin(){
-  const router = useRouter();
-  const { id } = router.query;
   // store digunakan untuk menyimpan setiap class yang sudah dibuat. Contoh nya seperti class pada artikel dan fact
   const store = useStore()
   // membuat state dataArtikel 
@@ -35,7 +32,7 @@ export default function Admin(){
       const updatedData = dataArtikel.filter(item => item.id !== id);
       setDataArtikel(updatedData);
       localStorage.removeItem('artikelData');
-      router.push('/blog/admin');
+      // router.push('/blog/admin');
     } catch (error) {
       console.log(error);
     }
@@ -77,13 +74,16 @@ export default function Admin(){
       <td className="px-6 py-4 whitespace-nowrap overflow-hidden overflow-ellipsis" style={{ maxWidth: "200px" }}>{item.isiArtikel}</td>
       <td className="px-6 py-4 whitespace-nowrap" >{item.pembuatArtikel}</td>
       <td className="px-6 py-4 whitespace-nowrap flex gap-2">
-      <Link href={`/blog/update`} as={`/blog/update/${item.id}`} className="bg-lime-400 hover:bg-lime-500 hover:text-white transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2">Edit</Link>
+      <Link href={{ pathname: '/blog/update/[slug]', query: { id: item.id } }} as={`/blog/update/${item.id}`} className="bg-lime-400 hover:bg-lime-500 hover:text-white transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2">Edit</Link>
         <button className="text-white bg-red-600 hover:bg-red-500 hover:text-black  transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2" onClick={() => deleteArtikel(item.id)}>Delete</button>
       </td>
     </tr>
   ))}
 </tbody>
   </table>
+    <div className="float-right pt-20 pr-2">
+  <Link href={'/blog/add-artikel'} className="p-2 bg-blue-500 rounded-lg hover:bg-blue-400 text-zinc-100 transition duration-500 ease-in-out">Tambah Cerpen Lainnya...</Link>
+  </div>
     </div>
     
 </div>

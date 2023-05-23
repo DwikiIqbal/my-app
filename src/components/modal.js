@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react"
 import { useStore } from "./StoreProvider"
+import { useRouter } from "next/router"
 
 
 
 export default function Modal() {
   // Properti Post Modal untuk Fact
   const store = useStore()
+  const router = useRouter()
   const [judulFakta, setJudulFakta] = useState('')
   const [isiFakta, setIsiFakta] = useState('')
   const [sumberFakta, setSumberFakta] = useState('')
@@ -101,21 +103,28 @@ export default function Modal() {
       const storedData = JSON.parse(localStorage.getItem('factData'));
       const updatedStoredData = storedData.filter((item) => item.id !== deleteId);
       localStorage.setItem('factData', JSON.stringify(updatedStoredData));
+
+      router.push('/blog')
+
     } catch (error) {
       console.error(error);
     }
   };
+
+  const handleDeleteClick = () => {
+    deleteFact();
+  };
   
   return (
     <>
-            <div className="w-1/4 p-10 bg-gray-50 flex-col">
+            <div className="w-1/4 p-1y0 bg-gray-50 flex-col">
 
               {/* Mengambil data yang berada di dataFact lalu dipetakan sampai seluruhnya berhasil di ambil */}
                     <div className="text-center text-2xl pb-10 font-bold">
                     <h1>Funfact</h1>
                     </div>   
                   {dataFact.map((item) => (
-                    <div className="mb-8">
+                    <div className="mb-8 px-4">
                       <div className="sm:w-full bg-white px-3 rounded-lg shadow-lg hover:shadow-amber-200/50 transition duration-300 ease-in-out overflow-hidden">
 
                         <h1 className="text-xl font-bold text-center py-3 sm:py-5">{item.judulFakta}</h1>
@@ -139,7 +148,7 @@ export default function Modal() {
                                   <p className=" text-gray-700 text-base">Sumber: {factData.sumberFakta}</p>
                                 </div>
                                 <div className="px-6 py-4 flex justify-end">
-                                  <button className="bg-red-600 hover:bg-red-500 transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2" onClick={deleteFact}>Hapus</button>
+                                  <button className="bg-red-500 text-white hover:bg-red-600 transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2" onClick={deleteFact}>Hapus</button>
                                   <button className="bg-gray-200 hover:bg-gray-300 transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2" onClick={closeModalDetail}>Tutup</button>
                                 </div>
                               </div>
@@ -152,7 +161,7 @@ export default function Modal() {
 
                  
                  {/* Membuat dataFact sesuai value nya */}
-                   <div className="pt-20 text-center bottom-0 ">
+                   <div className="pt-20 text-center bottom-0 px-4">
       <button onClick={openModal} className="p-2 bg-blue-500 rounded-lg hover:bg-blue-400 text-zinc-100 transition duration-500 ease-in-out">Tambahkan Fakta Menarik Lainnya...</button>
       
       {/* Menampilkan form untuk Funfact yang ditampilkan berupa modal */}
@@ -168,7 +177,7 @@ export default function Modal() {
               <input
                 type="text"
                 value={judulFakta}
-                className="rounded-lg border-line w-full h-10"
+                className="rounded-lg bg-white border-line w-full h-10"
                 placeholder=" Masukkan Judul"
                 required
                 onChange={(e) => setJudulFakta(e.target.value)}
@@ -178,7 +187,7 @@ export default function Modal() {
             <label>
               <textarea
                 value={isiFakta}
-                 rows="7" id="isiFakta" name="isiFakta" type="text" placeholder=" Masukkan Isi" className="rounded-lg w-full" 
+                 rows="7" id="isiFakta" name="isiFakta" type="text" placeholder=" Masukkan Isi" className="rounded-lg bg-white w-full" 
                 onChange={(e) => setIsiFakta(e.target.value)}
               />
             </label>
@@ -187,7 +196,7 @@ export default function Modal() {
               <input
                 type="text"
                 value={sumberFakta}
-                className="rounded-lg w-full h-10"
+                className="rounded-lg bg-white w-full h-10"
                 placeholder=" Masukkan Sumbernya"
                 onChange={(e) => setSumberFakta(e.target.value)}
               />

@@ -44,7 +44,7 @@ export default function Add() {
         // Get the response data from server as JSON.
         // If server returns the name submitted, that means the form works.
         const result = await response.json()
-        router.push('/blog')
+        router.push('/blog/admin-page')
         if (result) {
           alert("Cerpen berhasil dibuat!")
         }
@@ -54,6 +54,7 @@ export default function Add() {
     };
 
     const handleCheckboxChange = (event) => {
+      const selectedKategori = event.target.value.toLowerCase();
       const value = event.target.value;
       const isChecked = event.target.checked;
   

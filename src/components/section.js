@@ -12,6 +12,7 @@ const Section = observer((props) => {
     const store = useStore()
     // membuat state dataArtikel 
     const [dataArtikel, setDataArtikel] = useState([])
+    const [selectedCategory, setSelectedCategory] = useState(null);
 
     // menjalankan fungsi loadInitialData yang didalamnya ada function untuk artikel 
     useEffect(() => {
@@ -58,8 +59,33 @@ const Section = observer((props) => {
                 <img src="https://images.unsplash.com/photo-1630343710506-89f8b9f21d31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzl8fGJvb2t8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" className="w-1/2  mx-auto h-[450px]" alt=""/> 
                 <img src="https://images.unsplash.com/photo-1529590003495-b2646e2718bf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzJ8fGJvb2t8ZW58MHwxfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="" className="w-1/2 pr-4 mx-auto h-[450px]"/>
                 </div> 
-                 <div className="flex flex-col sm:flex-row sm:justify-between gap-5">
 
+                <div className="flex gap-4 justify-center  border-2 border-y-gray-300">
+                    <Link className="py-4 px-2 hover:bg-amber-500 hover:text-white  transition duration-300 ease-in-out" href="/blog/kategori/drama" onClick={() => setSelectedCategory('drama')}>
+                      Drama
+                    </Link>
+                    <br />
+                    <Link className="py-4 px-2 hover:bg-amber-500 hover:text-white  transition duration-300 ease-in-out" href="/blog/kategori/religi" onClick={() => setSelectedCategory('religi')}>
+                      Religi
+                    </Link>
+                    <br />
+                    <Link className="py-4 px-2 hover:bg-amber-500 hover:text-white  transition duration-300 ease-in-out" href="/blog/kategori/aksi" >
+                      Aksi
+                    </Link>
+                    <br />
+                    <Link className="py-4 px-2 hover:bg-amber-500 hover:text-white  transition duration-300 ease-in-out" href="/blog/kategori/romantis" onClick={() => setSelectedCategory('romantis')}>
+                      Romantis
+                    </Link>
+                    <br />
+                    <Link className="py-4 px-2 hover:bg-amber-500 hover:text-white  transition duration-300 ease-in-out" href="/blog/kategori/misteri" onClick={() => setSelectedCategory('misteri')}>
+                      Misteri
+                    </Link>
+                    <br />
+                    <Link className="py-4 px-2 hover:bg-amber-500 hover:text-white  transition duration-300 ease-in-out" href="/blog/kategori/komedi" onClick={() => setSelectedCategory('komedi')}>
+                      Komedi
+                    </Link>
+                </div>
+                 <div className="flex flex-col sm:flex-row sm:justify-between gap-5 pt-10">
                   {/* Artikel Utama  */}
                   
                   <div className="bg-gray-50 p-10 w-full">

@@ -8,6 +8,7 @@ import Link from 'next/link';
 export default function CommentPage() {
   const router = useRouter();
   const { id } = router.query;
+  console.log(id);
   const [data, setData] = useState();
   const store = useStore();
 

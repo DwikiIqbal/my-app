@@ -32,7 +32,7 @@ export default function format({ children }) {
 
   return (
     <>
-
+    
     <Head>
       <title>iBlog</title>
     </Head>

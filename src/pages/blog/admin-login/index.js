@@ -20,8 +20,10 @@ export default function AdminLogin() {
   };
 
   return (
-    <>
-    <div className="container mx-auto max-w-screen-lg py-40 px-20 w-1/3">
+    
+    <div className="bg-white h-full">
+
+    <div className="container mx-auto max-w-screen-lg py-40 px-20 w-1/3 text-black">
       <h1 className="text-3xl font-bold mb-10 text-center">Admin Login</h1>
       <form onSubmit={handleLogin} className="max-w-sm">
         <div className="mb-4">
@@ -31,7 +33,7 @@ export default function AdminLogin() {
           <input
             type="text"
             id="username"
-            className="border border-gray-300 px-3 py-2 rounded-sm w-full"
+            className="border border-gray-300 bg-white px-3 py-2 rounded-sm w-full"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
@@ -44,7 +46,7 @@ export default function AdminLogin() {
           <input
             type="password"
             id="password"
-            className="border border-gray-300 px-3 py-2 rounded-sm w-full"
+            className="border border-gray-300 bg-white px-3 py-2 rounded-sm w-full"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -64,6 +66,6 @@ export default function AdminLogin() {
       </form>
     </div>
     <Footer/>
-    </>
+    </div>
   );
 }

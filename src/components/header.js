@@ -27,7 +27,7 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-gray-100 fixed w-full">
+    <header className="bg-gray-100 fixed w-full text-black">
       <div className="xl:contanier xl:mx-auto flex flex-col items-center sm:flex-row sm:justify-between  py-3">
         <div className="shrink w-80 sm:order-2 text-center">
           <a className="font-bold text-3xl " >CerpenBLog</a>

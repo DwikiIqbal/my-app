@@ -94,26 +94,37 @@ export default function Modal() {
 
   const deleteFact = async () => {
     try {
-      await store.fact.deleteFact(deleteId); // Menghapus data berdasarkan id menggunakan fungsi deleteFact dari store
-      const updatedData = dataFact.filter((item) => item.id !== deleteId);
-      setDataFact(updatedData);
-      closeModalDetail();
+      if (deleteId) {
+        await store.fact.deleteFact(id);
+        const updatedData = dataFact.filter(item => item.id !== id);
+        setDataFact(updatedData);
+        localStorage.removeItem('factData');
+        closeModalDetail();
+   
+        // Hapus juga data dari localStorage
+        const storedData = JSON.parse(localStorage.getItem('factData'));
+        const updatedStoredData = storedData.filter((item) => item.id !== deleteId);
+        localStorage.setItem('factData', JSON.stringify(updatedStoredData));
   
-      // Hapus juga data dari localStorage
-      const storedData = JSON.parse(localStorage.getItem('factData'));
-      const updatedStoredData = storedData.filter((item) => item.id !== deleteId);
-      localStorage.setItem('factData', JSON.stringify(updatedStoredData));
-
-      router.push('/blog')
-
+        router.push('/blog');
+      }
     } catch (error) {
       console.error(error);
     }
   };
+  
+  
 
-  const handleDeleteClick = () => {
-    deleteFact();
+  const handleDeleteClick = (factData) => {
+    if (factData && factData.id) { // Memastikan factData dan factData.id memiliki nilai yang valid
+      setDeleteId(factData.id);
+      openModalDetail(factData);
+      deleteFact();
+    }
   };
+  
+  
+  
   
   return (
     <>
@@ -148,7 +159,7 @@ export default function Modal() {
                                   <p className=" text-gray-700 text-base">Sumber: {factData.sumberFakta}</p>
                                 </div>
                                 <div className="px-6 py-4 flex justify-end">
-                                  <button className="bg-red-500 text-white hover:bg-red-600 transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2" onClick={deleteFact}>Hapus</button>
+                                  {/* <button className="bg-red-500 text-white hover:bg-red-600 transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2" onClick={() => deleteFact(factData.id)} >Hapus</button> */}
                                   <button className="bg-gray-200 hover:bg-gray-300 transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2" onClick={closeModalDetail}>Tutup</button>
                                 </div>
                               </div>
@@ -161,7 +172,7 @@ export default function Modal() {
 
                  
                  {/* Membuat dataFact sesuai value nya */}
-                   <div className="pt-20 text-center bottom-0 px-4">
+                   <div className="pt-20 text-center bottom-0 px-4 pb-4">
       <button onClick={openModal} className="p-2 bg-blue-500 rounded-lg hover:bg-blue-400 text-zinc-100 transition duration-500 ease-in-out">Tambahkan Fakta Menarik Lainnya...</button>
       
       {/* Menampilkan form untuk Funfact yang ditampilkan berupa modal */}
@@ -189,6 +200,7 @@ export default function Modal() {
                 value={isiFakta}
                  rows="7" id="isiFakta" name="isiFakta" type="text" placeholder=" Masukkan Isi" className="rounded-lg bg-white w-full" 
                 onChange={(e) => setIsiFakta(e.target.value)}
+                required
               />
             </label>
             <br/>
@@ -199,12 +211,13 @@ export default function Modal() {
                 className="rounded-lg bg-white w-full h-10"
                 placeholder=" Masukkan Sumbernya"
                 onChange={(e) => setSumberFakta(e.target.value)}
+                required
               />
             </label>
 
             <div className="pt-6 flex gap-2 float-right">  
-            <span className="close cursor-pointer bg-blue-400 px-2 rounded" onClick={closeModal}>close</span>
-            <button onClick={handleSubmit} className="bg-green-400 px-2 rounded">submit</button>
+            <span className="close cursor-pointer bg-gray-200 hover:bg-gray-300 transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2" onClick={closeModal}>Tutup</span>
+            <button onClick={handleSubmit} className="bg-green-400 px-2 rounded  hover:bg-green-500  hover:text-white transition duration-500 ease-in-out">Tambah</button>
             </div>  
                             
           </form>

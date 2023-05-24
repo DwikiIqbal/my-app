@@ -94,7 +94,7 @@ export default function format({ children }) {
         <div className="ml-10 text-2xl font-bold">iBloG</div>
       </header>
       </div> */}
-      <main>{children}
+      <main className="bg-white text-black">{children}
       <Footer></Footer>
       </main>
 

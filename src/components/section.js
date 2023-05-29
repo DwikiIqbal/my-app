@@ -2,9 +2,7 @@ import { observer } from "mobx-react-lite"
 import Link from "next/link"
 import { useStore } from "./StoreProvider"
 import { useEffect, useState } from "react"
-
 import Modal from "./modal"
-
 
 
 const Section = observer((props) => {
@@ -39,7 +37,7 @@ const Section = observer((props) => {
             <div className="container mx-auto md:px-24">
             
                 
-                <h1 className="font-bold text-5xl py-12 w-1/2">
+                <h1 className="font-bold text-5xl py-12 max-w-lg w-1/2">
                 <span className=" hover:text-amber-500 transition duration-300 ease-in-out text-shadow">We </span> 
                 <span className=" hover:text-amber-500 transition duration-300 ease-in-out text-shadow">Present </span> 
                 <span className=" hover:text-amber-500 transition duration-300 ease-in-out text-shadow">The </span>  
@@ -54,13 +52,15 @@ const Section = observer((props) => {
                 
                 {/* Pembungkus Container Artikel */}
                 <div className="xl:container mx-auto max-w-screen-xl">
-                  <div className="pb-20 flex overflow-hidden sm:w-full sm:px-auto">
-                <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ym9va3xlbnwwfDF8MHx8&auto=format&fit=crop&w=500&q=60" className="w-1/2  mx-auto h-[450px]" alt=""/>
-                <img src="https://images.unsplash.com/photo-1630343710506-89f8b9f21d31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzl8fGJvb2t8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" className="w-1/2  mx-auto h-[450px]" alt=""/> 
-                <img src="https://images.unsplash.com/photo-1529590003495-b2646e2718bf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzJ8fGJvb2t8ZW58MHwxfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="" className="w-1/2 pr-4 mx-auto h-[450px]"/>
+                  
+                  <div className="pb-20 flex mx-auto max-w-full h-[420px] justify-center overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Ym9va3xlbnwwfDF8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60" className="  max-w-xl h-[355px] object-contain" alt=""/>
+                <img src="https://images.unsplash.com/photo-1630343710506-89f8b9f21d31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzl8fGJvb2t8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" className="  max-w-xl h-[355px] object-contain" alt=""/> 
+                <img src="https://images.unsplash.com/photo-1529590003495-b2646e2718bf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzJ8fGJvb2t8ZW58MHwxfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="" className="max-w-xl h-[355px] object-contain"/>
                 </div> 
+                
 
-                <div className="flex gap-4 justify-center  border-2 border-y-gray-300">
+                <div className="flex gap-4 justify-center  border-2 border-y-gray-300 ">
                     <Link className="py-4 px-2 hover:bg-amber-500 hover:text-white  transition duration-300 ease-in-out" href="/blog/kategori/drama" onClick={() => setSelectedCategory('drama')}>
                       Drama
                     </Link>
@@ -85,6 +85,8 @@ const Section = observer((props) => {
                       Komedi
                     </Link>
                 </div>
+
+
                  <div className="flex flex-col sm:flex-row sm:justify-between gap-5 pt-10">
                   {/* Artikel Utama  */}
                   
@@ -100,23 +102,25 @@ const Section = observer((props) => {
                   <p className="text-lg"> Baca kumpulan cerpen terbaru dan terbaik yang akan membuatmu terbawa suasana. Temukan macam macam kategori disini dan nikmati pengalaman membaca yang mengesankan di <span className="hover:text-amber-500 transition duration-300 ease-in-out text-shadow">CerpenBlog</span> .</p>
                 </div>
 
-                  <div className="pb-10 px-[5px] rounded-xl grid gap-10 md:grid-cols-2 grid-rows-2 overflow-hidden ">
+                  <div className="max-w-full w-full pb-10 px-[5px] rounded-xl grid gap-10 md:grid-cols-2 grid-rows-2 overflow-hidden ">
 
                     {/* Menangkap data sesuai fungsi nya, mengembalikan elemen-elemen dalam bentuk elemen HTML sesuai dengan data yang diterima, dan akan terus dilooping sesuai dengan data pada setiap elemen Array */}
 
                   {dataArtikel.map((item) => (
-                      <div className="sm:w-full sm:w-auto bg-white px-3 rounded-lg shadow-lg hover:shadow-amber-200/50 transition duration-300 ease-in-out ">
+                      <div className="max-w-full w-full overflow-hidden bg-white px-3 rounded-lg shadow-lg hover:shadow-amber-200/50 transition duration-300 ease-in-out ">
                       {/* <img className="w-full" src="gambar.jpg" alt="gambar" /> */}
                       <h1 className="text-xl font-bold text-center py-3 sm:py-5">{item.judulArtikel}</h1>
 
                       <div className="line-clamp-[7]"> 
-                      <p className="italic pb-2 ">Genre : <span className="text-amber-500">{item.kategoriArtikel.join(", ")}</span></p> 
+                      <p className="italic pb-2">Genre : <span className="text-amber-500">{item.kategoriArtikel.join(", ")}</span></p> 
                     
-                      <p>{item.isiArtikel}</p> 
+                      <p className="text-none">{item.isiArtikel}</p> 
                       </div>
-                      <Link href={{ pathname: '/blog/[slug]', query: { id: item.id } }} as={`/blog/${item.id}`} className="block w-44 mx-auto text-center text-blue-500 my-4 hover:text-blue-300 transition duration-300 ease-in-out">
+                    
+                      <Link href={{ pathname: '/blog/[slug]', query: { id: item.id } }} as={`/blog/${item.id}`} className="py-4 block text-center text-blue-500  hover:text-blue-300 transition duration-300 ease-in-out">
                        Read Me
                       </Link>
+                   
                       </div>
                   ))}
                      

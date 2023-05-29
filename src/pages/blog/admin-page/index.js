@@ -9,6 +9,26 @@ export default function Admin(){
   // membuat state dataArtikel 
   const [dataArtikel, setDataArtikel] = useState([])
   const [dataFact, setDataFact] = useState([])
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleteItemId, setDeleteItemId] = useState(null);
+
+  const handleDelete = (id) => {
+    setConfirmDelete(true);
+    setDeleteItemId(id);
+  };
+
+  const handleConfirmDelete = () => {
+    // Lakukan aksi penghapusan dengan id deleteItemId
+    // Setelah selesai, reset confirmDelete dan deleteItemId ke nilai awal
+    setConfirmDelete(false);
+    setDeleteItemId(null);
+  };
+
+  const handleCancelDelete = () => {
+    // Batalkan penghapusan
+    setConfirmDelete(false);
+    setDeleteItemId(null);
+  };
   
 
   // menjalankan fungsi loadInitialData yang didalamnya ada function untuk artikel 
@@ -43,23 +63,29 @@ export default function Admin(){
   // METHOD DELETE
   const deleteArtikel = async (id) => {
     try {
-      await store.artikel.deleteArtikel(id);
-      const updatedData = dataArtikel.filter(item => item.id !== id);
-      setDataArtikel(updatedData);
-      localStorage.removeItem('artikelData');
-      // router.push('/blog/admin');
+      const confirmed = window.confirm('Apakah Anda yakin ingin menghapus artikel ini?');
+      if (confirmed) {
+        await store.artikel.deleteArtikel(id);
+        const updatedData = dataArtikel.filter(item => item.id !== id);
+        setDataArtikel(updatedData);
+        localStorage.removeItem('artikelData');
+        // router.push('/blog/admin');
+      }
     } catch (error) {
       console.log(error);
     }
   };
-
+  
   const deleteFact = async (id) => {
     try {
-      await store.fact.deleteFact(id);
-      const updatedData = dataFact.filter(item => item.id !== id);
-      setDataFact(updatedData);
-      localStorage.removeItem('factData');
-      // router.push('/blog/admin');
+      const confirmed = window.confirm('Apakah Anda yakin ingin menghapus fakta ini?');
+      if (confirmed) {
+        await store.fact.deleteFact(id);
+        const updatedData = dataFact.filter(item => item.id !== id);
+        setDataFact(updatedData);
+        localStorage.removeItem('factData');
+        // router.push('/blog/admin');
+      }
     } catch (error) {
       console.log(error);
     }
@@ -84,7 +110,7 @@ export default function Admin(){
     
     <div className="">
     <h3 className="text-2xl">Data Cerpen</h3>
-    <table class="min-w-full">
+    <table class="min-w-full mx-auto ">
     <thead>
       <tr>
         <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Judul</th>
@@ -99,8 +125,8 @@ export default function Admin(){
     <tr key={item.id}>
       <td className="px-6 py-4 whitespace-nowrap">{item.judulArtikel}</td>
       <td className="px-6 py-4 whitespace-nowrap">{item.kategoriArtikel.join(', ')}</td>
-      <td className="px-6 py-4 whitespace-nowrap overflow-hidden overflow-ellipsis" style={{ maxWidth: "200px" }}>{item.isiArtikel}</td>
-      <td className="px-6 py-4 whitespace-nowrap" >{item.pembuatArtikel}</td>
+      <td className="px-6 py-4 whitespace-nowrap overflow-hidden overflow-ellipsis" style={{ maxWidth: "250px" }}>{item.isiArtikel}</td>
+      <td className="px-6 py-4 whitespace-nowrap overflow-hidden overflow-ellipsis"  style={{ maxWidth: "300px" }}>{item.pembuatArtikel}</td>
       <td className="px-6 py-4 whitespace-nowrap flex gap-2">
       <Link href={{ pathname: '/blog/update/[slug]', query: { id: item.id } }} as={`/blog/update/${item.id}`} className="bg-lime-400 hover:bg-lime-500 hover:text-white transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2">Edit</Link>
         <button className="text-white bg-red-600 hover:bg-red-500 hover:text-black  transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2" onClick={() => deleteArtikel(item.id)}>Delete</button>
@@ -114,6 +140,8 @@ export default function Admin(){
   </div>
     </div>
 
+    
+
     <div className="pt-32 ">
     <h3 className="text-2xl">Data Fakta</h3>
     <table class="min-w-full">
@@ -126,17 +154,26 @@ export default function Admin(){
       </tr>
     </thead>
     <tbody className="bg-cover bg-center divide-y divide-gray-200">
-  {dataFact.map((item) => (
-    <tr key={item.id}>
-      <td className="px-6 py-4 whitespace-nowrap">{item.judulFakta}</td>
-      <td className="px-6 py-4 whitespace-nowrap overflow-hidden overflow-ellipsis" style={{ maxWidth: "300px" }}>{item.isiFakta}</td>
-      <td className="px-6 py-4 whitespace-nowrap overflow-hidden overflow-ellipsis" style={{ maxWidth: "600px" }}>{item.sumberFakta}</td>
-      <td className="px-6 py-4 whitespace-nowrap flex gap-2">
-        <button className="text-white bg-red-600 hover:bg-red-500 hover:text-black  transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2" onClick={() => deleteFact(item.id)}>Delete</button>
-      </td>
-    </tr>
-  ))}
-</tbody>
+      {dataFact.map((item) => (
+        <tr key={item.id}>
+          <td className="px-6 py-4 whitespace-nowrap">{item.judulFakta}</td>
+          <td className="px-6 py-4 whitespace-nowrap overflow-hidden overflow-ellipsis" style={{ maxWidth: "300px" }}>{item.isiFakta}</td>
+          <td className="px-6 py-4 whitespace-nowrap overflow-hidden overflow-ellipsis" style={{ maxWidth: "600px" }}>{item.sumberFakta}</td>
+          <td className="px-6 py-4 whitespace-nowrap flex gap-2">
+            <button className="text-white bg-red-600 hover:bg-red-500 hover:text-black  transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2" onClick={() => deleteFact(item.id)}>Delete</button>
+          </td>
+        </tr>
+      ))}
+      {/* {confirmDelete && (
+        <tr>
+          <td colSpan="4" className="px-6 py-4 whitespace-nowrap text-center">
+            <p>Are you sure you want to delete this item?</p>
+            <button className="text-white bg-red-600 hover:bg-red-500 hover:text-black transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2" onClick={handleConfirmDelete}>Yes</button>
+            <button className="text-white bg-gray-600 hover:bg-gray-500 hover:text-black transition duration-500 ease-in-out rounded-md px-4 py-2" onClick={handleCancelDelete}>No</button>
+          </td>
+        </tr>
+      )} */}
+    </tbody>
   </table>
   </div>
     

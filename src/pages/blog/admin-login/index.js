@@ -11,7 +11,7 @@ export default function AdminLogin() {
   const handleLogin = (e) => {
     e.preventDefault();
     // Check username and password
-    if (username === "kdwiki" && password === "123") {
+    if (username === "dwiki" && password === "12") {
       // Redirect to admin page
       router.push("/blog/admin-page");
     } else {

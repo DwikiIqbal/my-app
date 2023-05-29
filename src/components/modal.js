@@ -128,22 +128,22 @@ export default function Modal() {
   
   return (
     <>
-            <div className="w-1/4 p-1y0 bg-gray-50 flex-col">
+            <div className="max-w-lg w-[380px] p-1y0 bg-gray-50 flex-col pb-4">
 
               {/* Mengambil data yang berada di dataFact lalu dipetakan sampai seluruhnya berhasil di ambil */}
-                    <div className="text-center text-2xl pb-10 font-bold">
+                    <div className="text-center text-2xl py-10 font-bold">
                     <h1>Funfact</h1>
                     </div>   
                   {dataFact.map((item) => (
-                    <div className="mb-8 px-4">
-                      <div className="sm:w-full bg-white px-3 rounded-lg shadow-lg hover:shadow-amber-200/50 transition duration-300 ease-in-out overflow-hidden">
+                    <div className="mb-8 px-6 ">
+                      <div className="max-w-lg w-full bg-white px-2 rounded-lg shadow-lg hover:shadow-amber-200/50 transition duration-300 ease-in-out overflow-hidden">
 
                         <h1 className="text-xl font-bold text-center py-3 sm:py-5">{item.judulFakta}</h1>
-                        <div className="line-clamp-[4]">
+                        <div className=" text- line-clamp-[4]">
                           <p>{item.isiFakta}</p>
                           <br />
                         </div>
-                        <button onClick={() => openModalDetail(item)} className="block w-44 mx-auto text-center text-blue-500 my-4 hover:text-blue-300 transition duration-300 ease-in-out"> Read Me</button>
+                        <button onClick={() => openModalDetail(item)} className="block sm:mx-auto text-center w-44 text-blue-500 my-4 hover:text-blue-300 transition duration-300 ease-in-out "> Read Me</button>
                       </div>
                     </div>
                   ))}
@@ -172,14 +172,17 @@ export default function Modal() {
 
                  
                  {/* Membuat dataFact sesuai value nya */}
-                   <div className="pt-20 text-center bottom-0 px-4 pb-4">
-      <button onClick={openModal} className="p-2 bg-blue-500 rounded-lg hover:bg-blue-400 text-zinc-100 transition duration-500 ease-in-out">Tambahkan Fakta Menarik Lainnya...</button>
+                 <div className="text-center mt-auto px-4">
+                    <button onClick={openModal} className="p-2 bg-blue-500 rounded-lg hover:bg-blue-400 text-zinc-100 transition duration-500 ease-in-out">Tambahkan Fakta Menarik Lainnya...</button>
+                  </div>
+
       
       {/* Menampilkan form untuk Funfact yang ditampilkan berupa modal */}
       {showModal && (
-         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70">
+         <div className="fixed z-10 inset-0 overflow-y-auto bg-black bg-opacity-70">
           
-          <form onSubmit={handleSubmit} className='bg-gray-100 p-8 rounded-lg shadow-lg grid w-1/4'>
+          <form onSubmit={handleSubmit} className='flex items-center justify-center min-h-screen'>
+            <div className="bg-white rounded-lg overflow-hidden shadow-xl max-w-lg w-full px-12 py-8">
           <div className="font-bold text-xl pb-4">
             <h1>Buat Funfact Kamu</h1>
           </div>
@@ -188,28 +191,30 @@ export default function Modal() {
               <input
                 type="text"
                 value={judulFakta}
-                className="rounded-lg bg-white border-line w-full h-10"
-                placeholder=" Masukkan Judul"
+                className="rounded-lg bg-stone-100 border-line w-full h-10 pl-2"
+                placeholder="Masukkan Judul"
                 required
                 onChange={(e) => setJudulFakta(e.target.value)}
               />
             </label>
             <br/>
+            <br/>
             <label>
               <textarea
                 value={isiFakta}
-                 rows="7" id="isiFakta" name="isiFakta" type="text" placeholder=" Masukkan Isi" className="rounded-lg bg-white w-full" 
+                 rows="7" id="isiFakta" name="isiFakta" type="text" placeholder="Masukkan Isi" className="rounded-lg bg-stone-100 w-full pl-2" 
                 onChange={(e) => setIsiFakta(e.target.value)}
                 required
               />
             </label>
             <br/>
+            <br/>
             <label>
               <input
                 type="text"
                 value={sumberFakta}
-                className="rounded-lg bg-white w-full h-10"
-                placeholder=" Masukkan Sumbernya"
+                className="rounded-lg bg-stone-100 w-full h-10 pl-2"
+                placeholder="Masukkan Sumbernya"
                 onChange={(e) => setSumberFakta(e.target.value)}
                 required
               />
@@ -218,12 +223,13 @@ export default function Modal() {
             <div className="pt-6 flex gap-2 float-right">  
             <span className="close cursor-pointer bg-gray-200 hover:bg-gray-300 transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2" onClick={closeModal}>Tutup</span>
             <button onClick={handleSubmit} className="bg-green-400 px-2 rounded  hover:bg-green-500  hover:text-white transition duration-500 ease-in-out">Tambah</button>
-            </div>  
+            </div> 
+            </div> 
                             
           </form>
         </div>
       )}
-      </div> 
+      
       </div>
     </>
   )

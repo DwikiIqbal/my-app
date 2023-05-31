@@ -8,7 +8,7 @@ function Footer(){
           <Link href="/blog/about" className="hover:text-amber-200 transition duration-300 ease-in-out">
             About Us
           </Link>
-          <Link href="/blog/admin-login" className="hover:text-amber-200 transition duration-300 ease-in-out">
+          <Link href="/blog/admin-login?" className="hover:text-amber-200 transition duration-300 ease-in-out">
             Admin
           </Link>
         </div>

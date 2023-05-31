@@ -1,12 +1,58 @@
 import Link from "next/link";
 import { ImLinkedin2, ImYoutube, ImFacebook } from "react-icons/im";
 import { useState, useEffect } from "react";
+import { DownOutlined } from '@ant-design/icons';
+import { Dropdown, Space } from 'antd';
 
 export default function Header() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [dataArtikel, setDataArtikel] = useState([]);
   const [filteredArtikel, setFilteredArtikel] = useState([]);
+
+  const items = [
+    {
+      label:  <Link href="/blog/kategori/drama" onClick={() => setSelectedCategory('drama')}> Drama </Link>,
+      key: '0',
+    },
+    {
+      label:   <Link href="/blog/kategori/religi" onClick={() => setSelectedCategory('religi')}>
+      Religi
+    </Link>,
+      key: '1',
+    },
+    {
+      label:   <Link href="/blog/kategori/aksi" onClick={() => setSelectedCategory('aksi')}>
+      Aksi
+    </Link>,
+      key: '2',
+    },
+    {
+      label:     <Link href="/blog/kategori/romantis" onClick={() => setSelectedCategory('romantis')}>
+      Romantis
+    </Link>,
+      key: '3',
+    },
+    {
+      label:     <Link href="/blog/kategori/misteri" onClick={() => setSelectedCategory('misteri')}>
+      Misteri
+    </Link>,
+      key: '4',
+    },
+    {
+      label:      <Link href="/blog/kategori/komedi" onClick={() => setSelectedCategory('komedi')}>
+      Komedi
+    </Link>,
+      key: '5',
+    },
+    {
+      type: 'divider',
+    },
+    {
+      label: '3rd menu item',
+      key: '3',
+    },
+  ];
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
@@ -35,49 +81,19 @@ export default function Header() {
         <div className="w-52 order-3 flex justify-center">
           <div className="flex gap-6 ">
             <Link href="/blog" className="hover:text-amber-500 transition duration-300 ease-in-out">Home</Link>
-            <span
-              className="cursor-pointer hover:text-amber-500 transition duration-300 ease-in-out"
-              onMouseEnter={toggleDropdown}
-              onMouseLeave={toggleDropdown}
-            >
-              Kategori
-              {showDropdown && (
-                <div
-                  id="dropdown"
-                  className="absolute top-100% bg-white rounded-md w-24 pl-2 pr-2 shadow-lg"
+            <Dropdown
+                  menu={{
+                    items,
+                  }}
+                  trigger={['click']}
                 >
-                  <div className="block px-2 py-2 text-black text-base">
-                    {/* <a href="#" onClick={() => setSelectedCategory(null)}>
-                      All
-                    </a> */}
-                   
-                    <Link href="/blog/kategori/drama" onClick={() => setSelectedCategory('drama')}>
-                      Drama
-                    </Link>
-                    <br />
-                    <Link href="/blog/kategori/religi" onClick={() => setSelectedCategory('religi')}>
-                      Religi
-                    </Link>
-                    <br />
-                    <Link href="/blog/kategori/aksi" onClick={() => setSelectedCategory('aksi')}>
-                      Aksi
-                    </Link>
-                    <br />
-                    <Link href="/blog/kategori/romantis" onClick={() => setSelectedCategory('romantis')}>
-                      Romantis
-                    </Link>
-                    <br />
-                    <Link href="/blog/kategori/misteri" onClick={() => setSelectedCategory('misteri')}>
-                      Misteri
-                    </Link>
-                    <br />
-                    <Link href="/blog/kategori/komedi" onClick={() => setSelectedCategory('komedi')}>
-                      Komedi
-                    </Link>
-                  </div>
-                </div>
-              )}
-            </span>
+                  <a className="cursor-pointer" onClick={(e) => e.preventDefault()}>
+                    <Space>
+                      Kategori
+                      
+                    </Space>
+                  </a>
+                </Dropdown>
           </div>
         </div>
       </div>

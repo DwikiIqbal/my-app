@@ -2,6 +2,7 @@ import Format from "@/layout/format"
 import { useStore } from "@/components/StoreProvider"
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/router"
 
 export default function Admin(){
   // store digunakan untuk menyimpan setiap class yang sudah dibuat. Contoh nya seperti class pada artikel dan fact
@@ -11,6 +12,7 @@ export default function Admin(){
   const [dataFact, setDataFact] = useState([])
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleteItemId, setDeleteItemId] = useState(null);
+  const router = useRouter()
 
   const handleDelete = (id) => {
     setConfirmDelete(true);
@@ -90,6 +92,11 @@ export default function Admin(){
       console.log(error);
     }
   };
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    router.push("/blog");
+  }
   
   
 
@@ -164,19 +171,10 @@ export default function Admin(){
           </td>
         </tr>
       ))}
-      {/* {confirmDelete && (
-        <tr>
-          <td colSpan="4" className="px-6 py-4 whitespace-nowrap text-center">
-            <p>Are you sure you want to delete this item?</p>
-            <button className="text-white bg-red-600 hover:bg-red-500 hover:text-black transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2" onClick={handleConfirmDelete}>Yes</button>
-            <button className="text-white bg-gray-600 hover:bg-gray-500 hover:text-black transition duration-500 ease-in-out rounded-md px-4 py-2" onClick={handleCancelDelete}>No</button>
-          </td>
-        </tr>
-      )} */}
     </tbody>
   </table>
   </div>
-    
+  <button className="text-white bg-red-600 hover:bg-red-500 hover:text-black  transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2" onClick={handleLogout}>Logout</button>
 </div>
 </Format>
         </>

@@ -1,12 +1,14 @@
 import { useState } from "react";
 import Format from "../../../layout/format";
 import { useRouter } from "next/router";
+import { Alert } from 'antd';
 
 export default function Add() {
     const [judulArtikel, setJudulArtikel] = useState("")
     const [kategoriArtikel, setKategoriArtikel] = useState([]);
     const [isiArtikel, setIsiArtikel] = useState("")
     const [pembuatArtikel, setPembuatArtikel] = useState("")
+    const [showAlert, setShowAlert] = useState(false)
     const router = useRouter()
 
 
@@ -25,15 +27,11 @@ export default function Add() {
       try {
         const JSONdata = JSON.stringify(data)
         const endpoint = 'http://localhost:4000/artikel'
-        // Form the request for sending data to the server.
         const options = {
-          // The method is POST because we are sending data.
           method: 'POST',
-          // Tell the server we're sending JSON.
           headers: {
             'Content-Type': 'application/json',
           },
-          // Body of the request is the JSON data we created above.
           body: JSONdata,
         }
         console.log(options);
@@ -43,11 +41,13 @@ export default function Add() {
         console.log(response);
         // Get the response data from server as JSON.
         // If server returns the name submitted, that means the form works.
-        const result = await response.json()
-        router.push('/blog/admin-page')
-        if (result) {
-          alert("Cerpen berhasil dibuat!")
-        }
+        const result = await response.json();
+      setShowAlert(true); // Show the alert before navigating
+
+      setTimeout(() => {
+        // Navigate to another page after a delay
+        router.push('/blog/admin-page');
+      }, 2000); // Delay in milliseconds (adjust as needed)
       } catch (error) {
         console.error(error)
       }
@@ -157,10 +157,27 @@ export default function Add() {
                 />
                 <br />
                 <div className="pt-10">
-                  <button type="submit" className="bg-amber-400 w-24 rounded-lg float-right hover:bg-amber-300 transition duration-300 ease-in-out">
+                  <button
+                    type="submit"
+                    className="bg-amber-400 w-24 rounded-lg float-right hover:bg-amber-300 transition duration-300 ease-in-out"
+                    onClick={() => setShowAlert(true)}
+                  >
                     Membuat
                   </button>
+                  <div className="fixed top-4 right-4 z-50">
+                    {showAlert && (
+                      <Alert
+                        message="Berhasil Membuat"
+                        type="success"
+                        showIcon
+                        closable
+                        onClose={() => setShowAlert(false)}
+                      />
+                    )}
+                  </div>
+
                 </div>
+
               </div>
             </form>
                 <br/>

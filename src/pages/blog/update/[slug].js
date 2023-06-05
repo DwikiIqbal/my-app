@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from "react";
 import Format from '@/layout/format';
 import Link from 'next/link';
+import { message } from 'antd';
 
   export default function Update({}) {
     const router = useRouter();
@@ -53,7 +54,7 @@ import Link from 'next/link';
         localStorage.setItem('artikelData', JSON.stringify(updatedData));
         toggleEdit();
         router.push('/blog/admin-page')
-        alert('Cerpen berhasil diperbarui!');
+        message.success(`Cerpen berjudul "${data.judulArtikel}" berhasil di edit`)
       } catch (error) {
         console.log(error);
       }

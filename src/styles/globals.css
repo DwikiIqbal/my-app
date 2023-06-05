@@ -11,4 +11,17 @@
       @apply mt-1 block w-60 px-3 py-2 bg-white border border-slate-300 rounded-xl text-sm shadow-sm placeholder-slate-500;
   }
 
+.custom-carousel .slick-dots li button {
+    /* Gaya CSS yang diinginkan */
+    background-color: rgb(87, 87, 87);
+
+}
+
+.custom-carousel .slick-dots li button:last-child,
+.custom-carousel .slick-dots li button:focus {
+  /* Gaya CSS yang diinginkan */
+  background-color: rgb(245 158 11);
+}
+
+
   

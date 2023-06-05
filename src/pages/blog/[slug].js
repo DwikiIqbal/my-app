@@ -63,7 +63,7 @@ const deleteArtikel = async () => {
         <main>
           {data ? (
             <div className="">
-              <div className="pt-32 px-48 xl:container mx-auto max-w-screen-xl ">
+              <div className="pt-32 px-20 xl:container mx-auto max-w-screen-xl ">
                 <h1 className="text-center text-3xl font-bold pb-8">
                   {data.judulArtikel}
                 </h1>

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { ImLinkedin2, ImYoutube, ImFacebook } from "react-icons/im";
+import { TbLogout } from "react-icons/tb";
+
 import { useState, useEffect } from "react";
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Space } from 'antd';
@@ -49,8 +51,7 @@ export default function Header() {
       type: 'divider',
     },
     {
-      label: '3rd menu item',
-      key: '3',
+      label: 'CerpenBlog',
     },
   ];
 
@@ -73,10 +74,10 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-gray-100 fixed w-full text-black">
+    <header className="bg-gray-100 max-w-full w-full text-black">
       <div className="xl:contanier xl:mx-auto flex flex-col items-center sm:flex-row sm:justify-between  py-3">
         <div className="shrink w-80 sm:order-2 text-center">
-          <a className="font-bold text-3xl " >CerpenBLog</a>
+          <Link href={"/blog"} className="font-bold text-3xl">CerpenBLog</Link>
         </div>
         <div className="w-52 order-3 flex justify-center">
           <div className="flex gap-6 ">

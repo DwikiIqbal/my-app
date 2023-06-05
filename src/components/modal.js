@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useStore } from "./StoreProvider";
 import { useRouter } from "next/router";
-import { Button, Modal } from "antd";
+import { Button, Modal, message, Space, Form, Input} from "antd";
 
 export default function ModalFakta() {
   // Properti Post Modal untuk Fact
@@ -17,11 +17,14 @@ export default function ModalFakta() {
   const [dataFact, setDataFact] = useState([]);
   const [factData, setFactData] = useState({});
 
-  const [deleteId, setDeleteId] = useState(null); // State untuk menyimpan id item yang akan dihapus
+  const [form] = Form.useForm();
 
   const handleCancel = () => {
-    console.log("Clicked cancel button");
-    setShowModalDetail(false);
+    setJudulFakta("");
+    setIsiFakta("");
+    setSumberFakta("");
+    setShowModal(false);
+    setShowModalDetail(false)
   };
 
   // Mengambil semua data fact
@@ -48,16 +51,17 @@ export default function ModalFakta() {
     setShowModalDetail(true);
   };
 
-  const closeModalDetail = () => {
-    setShowModalDetail(false);
-  };
-
   const closeModal = () => {
     setShowModal(false);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if(!judulFakta || !isiFakta || !sumberFakta){
+      message.error("Pastikan semua diisi dengan lengkap");
+      return;
+    }
 
     const data = {
       judulFakta,
@@ -70,8 +74,8 @@ export default function ModalFakta() {
       console.log(result);
 
       if (result) {
-        alert("Fakta berhasil dibuat!");
-
+        // Munculkan pesan sukses
+        message.success('Fakta berhasil ditambahkan!');
         // setiap nilai state menjadi kosong
         setJudulFakta("");
         setIsiFakta("");
@@ -84,62 +88,32 @@ export default function ModalFakta() {
 
         // simpan data ke localStorage
         localStorage.setItem("factData", JSON.stringify(result.body.data));
+      } else {
+
       }
     } catch (error) {
       console.error(error);
-    }
-  };
-
-  const deleteFact = async () => {
-    try {
-      if (deleteId) {
-        await store.fact.deleteFact(id);
-        const updatedData = dataFact.filter((item) => item.id !== id);
-        setDataFact(updatedData);
-        localStorage.removeItem("factData");
-        closeModalDetail();
-
-        // Hapus juga data dari localStorage
-        const storedData = JSON.parse(localStorage.getItem("factData"));
-        const updatedStoredData = storedData.filter(
-          (item) => item.id !== deleteId
-        );
-        localStorage.setItem("factData", JSON.stringify(updatedStoredData));
-
-        router.push("/blog");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleDeleteClick = (factData) => {
-    if (factData && factData.id) {
-      // Memastikan factData dan factData.id memiliki nilai yang valid
-      setDeleteId(factData.id);
-      openModalDetail(factData);
-      deleteFact();
     }
   };
 
   return (
     <>
-      <div className="max-w-lg w-[380px] bg-gray-50 rounded-lg p-1y0 flex-col pb-4">
+      <div className="max-w-lg w-[280px] bg-gray-50 px-2 rounded-lg flex-col pb-4">
         {/* Mengambil data yang berada di dataFact lalu dipetakan sampai seluruhnya berhasil di ambil */}
         <div className="text-center text-2xl py-10 font-bold">
           <h1>Funfact</h1>
         </div>
         {dataFact.map((item) => (
-          <div className="mb-8 flex justify-center ">
-            <div className="max-w-lg w-[200px] border-black bg-white px-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300 ease-in-out overflow-hidden">
-              <h1 className="text-xl font-bold text-center py-3 sm:py-5">
+          <div className="mb-8 flex justify-center align-center">
+            <div className="max-w-lg w-[160px] border-black bg-white px-2 py-2 rounded-lg shadow-lg hover:shadow-xl transition duration-300 ease-in-out overflow-hidden">
+              <h1 className="text-xl font-bold text-center py-2 px-2">
                 {item.judulFakta}
               </h1>
-              <div className=" text- line-clamp-[4]">
+              <div className="px-[3px] line-clamp-[3]">
                 <p>{item.isiFakta}</p>
                 <br />
               </div>
-              <div className="text-center py-2 cursor-pointer">
+              <div className="text-center flex justify-center my-2 cursor-pointer">
                 <a
                   type=""
                   className="text-blue-500 hover:text-blue-800 transition duration-300 ease-in-out"
@@ -166,9 +140,9 @@ export default function ModalFakta() {
         )}
 
         {/* Membuat dataFact sesuai value nya */}
-        <div className="text-center mt-auto px-4 pt-8">
+        <div className="text-center mt-auto px-2 pt-8">
           <button
-            onClick={openModal}
+            onClick={() => setShowModal(true)}
             className="w-[200px] p-2 bg-blue-500 rounded-lg hover:bg-blue-400 text-zinc-100 transition duration-500 ease-in-out"
           >
             Tambahkan Fakta Menarik Lainnya...
@@ -177,71 +151,59 @@ export default function ModalFakta() {
 
         {/* Menampilkan form untuk Funfact yang ditampilkan berupa modal */}
         {showModal && (
-          <div className="fixed z-10 inset-0 overflow-y-auto bg-black bg-opacity-50">
-            <form
-              onSubmit={handleSubmit}
-              className="flex items-center justify-center min-h-screen"
-            >
-              <div className="bg-white rounded-lg overflow-hidden shadow-xl max-w-lg w-full px-12 py-8">
-                <div className="font-bold text-xl pb-4">
-                  <h1>Buat Funfact Kamu</h1>
-                </div>
-                <div className="">
-                  <label className="">
-                    <input
-                      type="text"
-                      value={judulFakta}
-                      className="rounded-lg bg-stone-100 border-line w-full h-10 pl-2"
-                      placeholder="Masukkan Judul"
-                      required
-                      onChange={(e) => setJudulFakta(e.target.value)}
-                    />
-                  </label>
-                  <br />
-                  <br />
-                  <label>
-                    <textarea
-                      value={isiFakta}
-                      rows="7"
-                      id="isiFakta"
-                      name="isiFakta"
-                      type="text"
-                      placeholder="Masukkan Isi"
-                      className="rounded-lg bg-stone-100 w-full pl-2 py-2"
-                      onChange={(e) => setIsiFakta(e.target.value)}
-                      required
-                    />
-                  </label>
-                  <br />
-                  <br />
-                  <label>
-                    <input
-                      type="text"
-                      value={sumberFakta}
-                      className="rounded-lg bg-stone-100 w-full h-10 pl-2"
-                      placeholder="Masukkan Sumbernya"
-                      onChange={(e) => setSumberFakta(e.target.value)}
-                      required
-                    />
-                  </label>
-                </div>
-                <div className="pt-6 flex gap-2 float-right">
-                  <span
-                    className="close cursor-pointer bg-gray-200 hover:bg-gray-300 transition duration-500 ease-in-out rounded-md px-4 py-2 mr-2"
-                    onClick={closeModal}
-                  >
-                    Tutup
-                  </span>
+            <Modal
+            visible={showModal}
+            title="Buat Funfact Kamu"
+            onCancel={handleCancel}
+            footer={null}
+            destroyOnClose
+          >
+            <Form layout="vertical" className="pt-2">
+              <input
+                  type="text"
+                  value={judulFakta}
+                  className="rounded-lg bg-stone-100 border-line w-full h-10 pl-2"
+                  placeholder="Masukkan Judul"
+                  required
+                  onChange={(e) => setJudulFakta(e.target.value)}
+              />
+              <br/>
+              <br/>
+            
+              <textarea
+                  value={isiFakta}
+                  rows="7"
+                  id="isiFakta"
+                  name="isiFakta"
+                  type="text"
+                  placeholder="Masukkan Isi"
+                  className="rounded-lg bg-stone-100 w-full pl-2 py-2"
+                  onChange={(e) => setIsiFakta(e.target.value)}
+                  required
+              />
+              <br/>
+              <br/>
+
+              <input
+                   type="text"
+                   value={sumberFakta}
+                   className="rounded-lg bg-stone-100 w-full h-10 pl-2"
+                   placeholder="Masukkan Sumbernya"
+                   onChange={(e) => setSumberFakta(e.target.value)}
+                   required
+              />
+                 <div className="pt-6">
                   <button
                     onClick={handleSubmit}
-                    className="bg-green-400 px-2 rounded  hover:bg-green-500  hover:text-white transition duration-500 ease-in-out"
+                    type="submit"
+                    className="bg-green-400 px-2 rounded  hover:bg-green-500 transition duration-500 ease-in-out"
                   >
                     Tambah
                   </button>
-                </div>
-              </div>
-            </form>
-          </div>
+                  </div>
+            </Form>
+          </Modal>
+           
         )}
       </div>
     </>

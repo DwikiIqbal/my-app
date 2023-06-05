@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Format from "../../../layout/format";
 import { useRouter } from "next/router";
-import { Alert } from 'antd';
+import { Alert, Checkbox } from 'antd';
 
 export default function Add() {
     const [judulArtikel, setJudulArtikel] = useState("")
@@ -100,27 +100,27 @@ export default function Add() {
                 <br />
                 <div className="grid grid-cols-3 gap-4 w-[360px]">
                   <div>
-                   <input id="drama" name="kategoriArtikel[]" type="checkbox" value="drama" className="mr-2" onChange={handleCheckboxChange}/>
+                   <Checkbox id="drama" name="kategoriArtikel[]" type="checkbox" value="drama" className="mr-2" onChange={handleCheckboxChange}/>
                    <label htmlFor="drama">Drama</label>
                   </div>
                   <div>
-                  <input id="komedi" name="kategoriArtikel[]" type="checkbox" value="komedi" className="mr-2" onChange={handleCheckboxChange}/>
+                  <Checkbox id="komedi" name="kategoriArtikel[]" type="checkbox" value="komedi" className="mr-2" onChange={handleCheckboxChange}/>
                   <label htmlFor="komedi">Komedi</label>
                   </div>
                   <div>
-                  <input id="religi" name="kategoriArtikel[]" type="checkbox" value="religi" className="mr-2" onChange={handleCheckboxChange}/>
+                  <Checkbox id="religi" name="kategoriArtikel[]" type="checkbox" value="religi" className="mr-2" onChange={handleCheckboxChange}/>
                   <label htmlFor="religi">Religi</label>
                   </div>
                   <div>
-                  <input id="misteri" name="kategoriArtikel[]" type="checkbox" value="misteri" className="mr-2" onChange={handleCheckboxChange}/>
+                  <Checkbox id="misteri" name="kategoriArtikel[]" type="checkbox" value="misteri" className="mr-2" onChange={handleCheckboxChange}/>
                   <label htmlFor="misteri">Misteri</label>
                   </div>
                   <div>
-                  <input id="romantis" name="kategoriArtikel[]" type="checkbox" value="romantis" className="mr-2" onChange={handleCheckboxChange}/>
+                  <Checkbox id="romantis" name="kategoriArtikel[]" type="checkbox" value="romantis" className="mr-2" onChange={handleCheckboxChange}/>
                   <label htmlFor="romantis">Romantis</label>
                   </div>
                   <div>
-                  <input id="aksi" name="kategoriArtikel[]" type="checkbox" value="aksi" className="mr-2" onChange={handleCheckboxChange}/>
+                  <Checkbox id="aksi" name="kategoriArtikel[]" type="checkbox" value="aksi" className="mr-2" onChange={handleCheckboxChange}/>
                   <label htmlFor="aksi">Aksi</label>
                   </div>
                 </div>
